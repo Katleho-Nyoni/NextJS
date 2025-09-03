@@ -8,7 +8,7 @@ export interface Product {
 
 export const products: Product [] = [{
     id: "100",
-    name: "Seanamarena-Poone Blanket",
+    name: "Seanamarena Blanket",
     imageURL: "blanket.jpeg",
     description: "The well celebrated Seanamarena-Poone blanket",
     price: 29.99
@@ -20,7 +20,7 @@ export const products: Product [] = [{
     price: 34.99
 },{
     id: "102",
-    name: "Black Premium Cast Iron Pots",
+    name: "Black Cast Iron Pots",
     imageURL: "pots.webp",
     description: "A set of ceramic pots for your plants",
     price: 19.99
