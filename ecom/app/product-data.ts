@@ -22,7 +22,7 @@ export const products: Product [] = [{
     id: "102",
     name: "Black Cast Iron Pots",
     imageURL: "pots.webp",
-    description: "A set of ceramic pots for your plants",
+    description: "A set of ceramic pots for your home cooked meals",
     price: 19.99
 },{
     id: "103",
