@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import {products} from "@/app/product-data";
+import { request } from "http";
 
 type ShoppingCart = Record<string,string[]>;
 
@@ -11,7 +12,7 @@ const carts: ShoppingCart = {
 
 type Params = {id:string;}
 
-export async function GET(req: NextRequest, { params }: { params: Params }) {    
+export async function GET(request: NextRequest, { params }: { params: Params }) {    
     const userID = params.id;
     const shoppingCart = carts[userID];
 
@@ -32,4 +33,23 @@ export async function GET(req: NextRequest, { params }: { params: Params }) {
             "Content-Type": "application/json"
         }
     });
+}
+
+type cartBody = { productID: string;}
+
+export async function POST(request: NextRequest,{ params }:{params : Params}){
+    const userID = params.id;
+    const body: cartBody = await req.json();
+    const productID = body.productID;
+
+    carts[userID] = carts[userID] ? carts[userID].concat(productID) : [productID];
+
+    const cartProducts = carts[userID].map(id => (products.find(p => p.id === id)));
+
+    return new Response(JSON.stringify(cartProducts),{
+        status:201,
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
 }
