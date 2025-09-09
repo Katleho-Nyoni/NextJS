@@ -39,7 +39,7 @@ type cartBody = { productID: string;}
 
 export async function POST(request: NextRequest,{ params }:{params : Params}){
     const userID = params.id;
-    const body: cartBody = await req.json();
+    const body: cartBody = await request.json();
     const productID = body.productID;
 
     carts[userID] = carts[userID] ? carts[userID].concat(productID) : [productID];
@@ -51,5 +51,20 @@ export async function POST(request: NextRequest,{ params }:{params : Params}){
         headers: {
             "Content-Type": "application/json"
         }
-    })
+    });
 }
+
+export async function DELETE(request: NextRequest, { params }: { params: Params }) { 
+    const userID = params.id;
+    const body: cartBody = await request.json();
+    const productID = body.productID;
+
+    carts[userID] = carts[userID] ? carts[userID].filter(pID => pID !== productID) : [];
+
+    return new Response(JSON.stringify(carts[userID]),{
+        status: 200,
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+ }
