@@ -61,8 +61,10 @@ export async function DELETE(request: NextRequest, { params }: { params: Params 
 
     carts[userID] = carts[userID] ? carts[userID].filter(pID => pID !== productID) : [];
 
-    return new Response(JSON.stringify(carts[userID]),{
-        status: 200,
+    const cartProducts = carts[userID].map(id => (products.find(p => p.id === id)));
+
+    return new Response(JSON.stringify(cartProducts),{
+        status: 202,
         headers: {
             "Content-Type": "application/json"
         }
