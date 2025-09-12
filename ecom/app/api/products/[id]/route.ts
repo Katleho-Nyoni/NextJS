@@ -7,7 +7,7 @@ export async function GET(req: NextRequest, { params }: { params: Params }) {
 
 
     const productID = params.id;
-    const product = db.collection('products').findOne({id: productID});
+    const product = await db.collection('products').findOne({id: productID});
 
     if (!product){
         return new Response('Product Not Found', { status: 404 });
