@@ -40,13 +40,20 @@ export async function GET(request: NextRequest, { params }: { params: Params }) 
 type cartBody = { productID: string;}
 
 export async function POST(request: NextRequest,{ params }:{params : Params}){
+
+    const { db } = await connectToDatabase(); 
+
     const userID = params.id;
     const body: cartBody = await request.json();
     const productID = body.productID;
 
-    carts[userID] = carts[userID] ? carts[userID].concat(productID) : [productID];
+    const updatedCart = await db.collection('carts').findOneAndUpdate(
+        { userID },
+        { $push: { cartIDs: productID } },
+        { upsert: true, returnDocument: 'after' }
+    );
 
-    const cartProducts = carts[userID].map(id => (products.find(p => p.id === id)));
+    const cartProducts = await db.collection('products').find( { id: { $in: updatedCart.cartIDs} } ).toArray();
 
     return new Response(JSON.stringify(cartProducts),{
         status:201,
