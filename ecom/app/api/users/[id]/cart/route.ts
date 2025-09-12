@@ -1,5 +1,4 @@
 import { NextRequest } from "next/server";
-import {products} from "@/app/product-data";
 import { connectToDatabase } from "@/app/api/db";
 
 type ShoppingCart = Record<string,string[]>;
@@ -85,7 +84,7 @@ export async function DELETE(request: NextRequest, { params }: { params: Params 
     });
     }
 
-    carts[userID] = carts[userID] ? carts[userID].filter(pID => pID !== productID) : [];
+    // carts[userID] = carts[userID] ? carts[userID].filter(pID => pID !== productID) : [];
 
     const cartProducts = await db.collection('products').find( { id: { $in: updatedCart.cartIDs} } ).toArray();
 

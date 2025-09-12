@@ -1,7 +1,9 @@
-import {products} from "@/app/product-data";
 
-export default function ProductDetailPage({params } : { params: {id: string}}){
-    const product = products.find(p => p.id === params.id);
+export default async function ProductDetailPage({params } : { params: {id: string}}){
+
+    const response = await fetch('https://wmrrt5qw-3000.euw.devtunnels.ms/api/products/' + params.id );
+    const product = await response.json();
+
     return (
         <div className="container mx-auto p-8 flex flex-col md:flex-row">
             <div className="md:w-1/2 mb-4 md:mb-0 md:mr-8">
