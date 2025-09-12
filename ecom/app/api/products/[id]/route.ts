@@ -1,11 +1,13 @@
 import { NextRequest } from "next/server";
-import {products} from "@/app/product-data";
+import {connectToDatabase} from "../../db";
 
 type Params = {id:string;}
 export async function GET(req: NextRequest, { params }: { params: Params }) {
+    const {db} = await connectToDatabase();
+
 
     const productID = params.id;
-    const product = products.find(p => p.id === productID);
+    const product = db.collection('products').findOne({id: productID});
 
     if (!product){
         return new Response('Product Not Found', { status: 404 });
