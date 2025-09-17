@@ -13,8 +13,9 @@ export default function ProductList({products, initialCartProducts }:{products: 
             body: JSON.stringify({productID,}),
             headers: {
                 'Content-Type': 'application/json',
-            },
-        })
+            }
+        });
+
         const updatedCartProducts = await response.json();
         setCartProducts(updatedCartProducts);
     }
@@ -25,8 +26,9 @@ export default function ProductList({products, initialCartProducts }:{products: 
             body: JSON.stringify({productID}),
             headers: {
                 'Content-Type': 'application/json',
-            },
-        })
+            }
+        });
+
         const updatedCartProducts = await response.json();
         setCartProducts(updatedCartProducts);
     }
@@ -36,7 +38,7 @@ export default function ProductList({products, initialCartProducts }:{products: 
     }
 
     return (
-        <div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {products.map(product => (
                 <Link key = {product.id} href=
                 {"/products/" + product.id} > 
