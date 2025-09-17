@@ -8,7 +8,7 @@ export default function ProductList({products, initialCartProducts }:{products: 
     const [cartProducts, setCartProducts] = useState(initialCartProducts)
 
     async function addToCart(productID: string){
-        const response = fetch('https://wmrrt5qw-3000.euw.devtunnels.ms/api/users/2/cart',{
+        const response = await fetch('https://wmrrt5qw-3000.euw.devtunnels.ms/api/users/2/cart',{
             method: 'POST',
             body: JSON.stringify({productID,}),
             headers: {
@@ -20,7 +20,7 @@ export default function ProductList({products, initialCartProducts }:{products: 
     }
 
     async function removeFromCart(productID: string){
-        const response = fetch('https://wmrrt5qw-3000.euw.devtunnels.ms/api/users/2/cart', {
+        const response = await fetch('https://wmrrt5qw-3000.euw.devtunnels.ms/api/users/2/cart', {
             method: 'DELETE',
             body: JSON.stringify({productID}),
             headers: {
