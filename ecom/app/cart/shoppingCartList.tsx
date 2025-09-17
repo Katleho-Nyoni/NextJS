@@ -4,11 +4,13 @@ import { useState } from "react";
 import { Product } from "../product-data";
 import Link from "next/link";
 
+export const dynamic = 'force-dynamics';
+
 export default function ShoppingCartList({ initialCartProducts }: {initialCartProducts: Product[] }) {
     const [cartProducts, setCartProducts] = useState(initialCartProducts);
 
     async function removeFromCart(productID: string){
-        const response = await fetch('https://wmrrt5qw-3000.euw.devtunnels.ms/api/users/2/cart', {
+        const response = await fetch(process.env.NEXT_PUBLIC_SITE_URL+'/api/users/2/cart', {
             method: 'DELETE',
             body: JSON.stringify({productID}),
             headers: {

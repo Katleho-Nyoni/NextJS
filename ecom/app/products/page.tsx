@@ -1,10 +1,12 @@
 import ProductList from "../ProductList";
 
+export const dynamic = 'force-dynamics';
+
 export default async function ProductsPage(){
-  const response = await fetch('https://wmrrt5qw-3000.euw.devtunnels.ms/api/products');
+  const response = await fetch(process.env.NEXT_PUBLIC_SITE_URL+'/api/products');
   const products = await response.json();
 
-  const response1 = await fetch('https://wmrrt5qw-3000.euw.devtunnels.ms/api/users/2/cart', {cache: 'no-store'});
+  const response1 = await fetch(process.env.NEXT_PUBLIC_SITE_URL+'/api/users/2/cart', {cache: 'no-store'});
   const cartProducts = await response1.json();
 
 

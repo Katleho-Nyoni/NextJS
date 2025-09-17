@@ -4,11 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { Product } from "./product-data";
 
+export const dynamic = 'force-dynamics';
+
 export default function ProductList({products, initialCartProducts }:{products: Product[], initialCartProducts: Product[]}) {
     const [cartProducts, setCartProducts] = useState(initialCartProducts)
 
     async function addToCart(productID: string){
-        const response = await fetch('https://wmrrt5qw-3000.euw.devtunnels.ms/api/users/2/cart',{
+        const response = await fetch(process.env.NEXT_PUBLIC_SITE_URL+'/api/users/2/cart',{
             method: 'POST',
             body: JSON.stringify({productID,}),
             headers: {
@@ -21,7 +23,7 @@ export default function ProductList({products, initialCartProducts }:{products: 
     }
 
     async function removeFromCart(productID: string){
-        const response = await fetch('https://wmrrt5qw-3000.euw.devtunnels.ms/api/users/2/cart', {
+        const response = await fetch(process.env.NEXT_PUBLIC_SITE_URL+'/api/users/2/cart', {
             method: 'DELETE',
             body: JSON.stringify({productID}),
             headers: {
@@ -47,12 +49,14 @@ export default function ProductList({products, initialCartProducts }:{products: 
                     <p>R{product.price}</p>
                     {isInCart(product.id)
                     ? (
-                        <button onClick={(e) => {
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full"
+                        onClick={(e) => {
                         e.preventDefault();
                         removeFromCart(product.id);
                     }} >- Cart</button>
                     ):(
-                        <button onClick={(e) => {
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full"
+                        onClick={(e) => {
                         e.preventDefault();
                         addToCart(product.id);
                     }} >+ Cart</button>

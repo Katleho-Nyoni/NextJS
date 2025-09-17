@@ -1,7 +1,9 @@
 
+export const dynamic = 'force-dynamics';
+
 export default async function ProductDetailPage({params } : { params: {id: string}}){
 
-    const response = await fetch('https://wmrrt5qw-3000.euw.devtunnels.ms/api/products/' + params.id );
+    const response = await fetch(process.env.NEXT_PUBLIC_SITE_URL+'/api/products/' + params.id );
     const product = await response.json();
 
     return (
