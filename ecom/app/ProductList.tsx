@@ -41,7 +41,7 @@ export default function ProductList({products, initialCartProducts }:{products: 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {products.map(product => (
                 <Link key = {product.id} href=
-                {"/products/" + product.id} > 
+                {"/products/" + product.id} className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition duration-300" > 
                     <Image src={'/' + product.imageURL} width={150} height={150} alt="Product Image" />
                     <h2>{product.name}</h2>
                     <p>R{product.price}</p>
